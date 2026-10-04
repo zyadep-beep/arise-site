@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARISE — AI Automation for Any Business</title>
+<meta name="description" content="ARISE builds AI automation for any business across Kuwait and the Gulf: WhatsApp AI agents, booking, lead capture, reminders and analytics.">
+<meta property="og:title" content="ARISE — AI Automation for Any Business">
+<meta property="og:description" content="WhatsApp AI agents, booking, lead capture, reminders and analytics for businesses in Kuwait and the Gulf.">
+<meta name="theme-color" content="#07070a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 104 104'%3E%3Cpath fill='%23e0a52c' d='M2,5 L42,31 L43,38 L36,40 L6,17Z M3,23 L33,43 L33,49 L27,50 L7,36Z M8,40 L30,54 L31,59 L26,66 L20,55 L8,46Z M10,98 L15,76 L42,38 L63,16 L54,8 L95,2 L91,41 L81,27 L68,44 L55,68 L45,88 L30,96Z'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#07070a;--bg2:#0d0d11;--card:#111116;--gold:#d4af37;--gold2:#f3d77a;--red:#8c1d26;--red2:#b32632;--ink:#f5f1e6;--mut:#9a9588;--line:rgba(212,175,55,.18);--serif:Georgia,'Times New Roman',serif;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,Inter,Roboto,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--red);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+b i{font-style:normal}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:120px 0;position:relative}
+em{font-family:var(--serif);font-style:italic;font-weight:400;background:linear-gradient(120deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,h2,h3{font-weight:600;letter-spacing:-.02em;line-height:1.05}
+h2{font-size:clamp(34px,5vw,60px);margin-bottom:18px}
+.eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:block;font-family:ui-monospace,Menlo,monospace}
+.lead{color:var(--mut);font-size:18px;max-width:620px}
+.mark{width:34px;height:34px;display:block;flex:none;object-fit:contain}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold),var(--red2));transform:scaleX(0);transform-origin:0 50%;z-index:200}
+.loader{position:fixed;inset:0;background:#000;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.loader .mark{width:96px;height:96px}
+.loader .lt{font-size:clamp(46px,9vw,100px);font-weight:700;letter-spacing:.18em;display:flex;overflow:hidden;color:var(--gold);direction:ltr}
+.loader .lt span{display:inline-block}
+.loader .bar{width:220px;height:2px;background:rgba(255,255,255,.1);overflow:hidden}
+.loader .bar i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:0 50%}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 0;backdrop-filter:blur(14px);background:rgba(7,7,10,.6);border-bottom:1px solid rgba(140,29,38,.38)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;direction:ltr;gap:16px}
+.logo{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.22em;font-size:20px;color:var(--gold)}
+.logo b{color:var(--ink)}
+.links{display:flex;gap:30px;font-size:14px;color:var(--mut)}
+.links a{position:relative;transition:color .3s}
+.links a:after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .4s}
+.links a:hover{color:var(--ink)}.links a:hover:after{transform:scaleX(1);transform-origin:left}
+.navr{display:flex;align-items:center;gap:12px}
+.langbtn{border:1px solid var(--line);border-radius:99px;padding:9px 18px;font-size:14px;font-weight:600;color:var(--gold2);transition:.3s;min-width:62px}
+.langbtn:hover{border-color:var(--gold);background:rgba(212,175,55,.1)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:99px;font-weight:600;font-size:15px;position:relative;overflow:hidden;transition:box-shadow .4s;font-family:inherit}
+.btn.gold{background:linear-gradient(120deg,var(--gold),var(--gold2));color:#111}
+.btn.gold:hover{box-shadow:0 0 40px rgba(212,175,55,.45)}
+.btn.ghost{border:1px solid var(--line);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--gold);background:rgba(212,175,55,.08)}
+.btn:disabled{opacity:.6;pointer-events:none}
+.hero{min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:140px 0 90px;position:relative}
+#bg{position:absolute;inset:0;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+.orb1{width:520px;height:520px;background:rgba(212,175,55,.22);top:-120px;right:-100px}
+.orb2{width:440px;height:440px;background:rgba(140,29,38,.4);bottom:-140px;left:-120px}
+.hero .content{position:relative;z-index:2}
+.hero h1{font-size:clamp(44px,8.2vw,112px);margin:10px 0 28px}
+.line{display:block;overflow:hidden;padding:.04em 0 .1em}
+.wi{display:inline-block}
+.hero .lead{font-size:clamp(17px,2vw,21px);margin-bottom:38px}
+.actions{display:flex;gap:14px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:99px;padding:7px 16px;font-size:13px;color:var(--gold2);background:rgba(212,175,55,.05)}
+.pill:before{content:"";width:7px;height:7px;border-radius:50%;background:#3ddc84;box-shadow:0 0 10px #3ddc84;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.stats{display:flex;gap:56px;margin-top:70px;flex-wrap:wrap}
+.stat b{display:block;font-size:44px;font-family:var(--serif);color:var(--gold2);font-weight:400;line-height:1}
+.stat span{color:var(--mut);font-size:13px;letter-spacing:.06em}
+.scrollcue{position:absolute;bottom:28px;left:50%;width:1px;height:54px;background:linear-gradient(var(--gold),transparent);z-index:2;animation:cue 2s infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.marq{border-block:1px solid rgba(140,29,38,.45);overflow:hidden;padding:22px 0;background:var(--bg2);direction:ltr}
+.marq-track{display:flex;width:max-content;white-space:nowrap}
+.marq-track span{font-family:var(--serif);font-size:clamp(26px,4vw,46px);padding:0 28px;color:transparent;-webkit-text-stroke:1px rgba(212,175,55,.55)}
+.marq-track span:nth-child(even){color:var(--red2);-webkit-text-stroke:0;font-size:.6em;align-self:center;padding:0}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:30px 26px;position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform;transition:box-shadow .4s,border-color .4s}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx,50%) var(--my,0%),rgba(212,175,55,.16),transparent 60%);opacity:0;transition:opacity .4s}
+.card:hover:before{opacity:1}
+.card:hover{border-color:var(--line);box-shadow:0 22px 50px -22px rgba(140,29,38,.6)}
+.card .ic{width:50px;height:50px;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold);margin-bottom:22px;background:rgba(212,175,55,.06)}
+.card .ic svg,.ic2 svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:19px;margin-bottom:10px;letter-spacing:-.01em}
+.card p{color:var(--mut);font-size:14.5px}
+#demo{background:radial-gradient(900px 400px at 50% 0,rgba(212,175,55,.08),transparent 70%),radial-gradient(700px 420px at 0% 100%,rgba(140,29,38,.16),transparent 70%),var(--bg2);border-block:1px solid var(--line)}
+.tabs{display:flex;gap:12px;margin:40px 0 30px;flex-wrap:wrap}
+.tab{display:flex;align-items:center;gap:12px;padding:14px 24px;border-radius:99px;border:1px solid rgba(255,255,255,.1);color:var(--mut);transition:.35s;font-weight:600}
+.tab span:first-child{font-size:20px}
+.tab:hover{border-color:var(--gold);color:var(--ink)}
+.tab.on{background:linear-gradient(120deg,var(--gold),var(--gold2));color:#111;border-color:transparent;box-shadow:0 0 36px rgba(212,175,55,.3)}
+.demo{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:28px;align-items:start}
+.phone{background:#0b0b0f;border:1px solid var(--line);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;height:680px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.phead{display:flex;align-items:center;gap:14px;padding:16px 20px;background:#13131a;border-bottom:1px solid rgba(255,255,255,.06)}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#111;display:grid;place-items:center;font-weight:700;flex:none}
+.phead b{display:block;font-size:15px;line-height:1.2}
+.phead small{color:#3ddc84;font-size:12px}
+.reset{margin-inline-start:auto;font-size:12px;color:var(--mut);border:1px solid rgba(255,255,255,.12);padding:6px 12px;border-radius:99px;transition:.3s;white-space:nowrap}
+.reset:hover{color:var(--gold);border-color:var(--gold)}
+#msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:#2a2a30 transparent}
+.b{max-width:82%;padding:11px 15px;border-radius:18px;font-size:14.5px;animation:pop .4s cubic-bezier(.2,.9,.3,1.2) both;line-height:1.5}
+.b.bot{background:#1a1a22;border:1px solid rgba(255,255,255,.06);border-end-start-radius:5px;align-self:flex-start}
+.b.me{background:linear-gradient(120deg,var(--gold),var(--gold2));color:#111;border-end-end-radius:5px;align-self:flex-end;font-weight:500}
+.b.card-b{padding:0;background:none;border:0;max-width:92%}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.96)}}
+.typing{display:flex;gap:5px;padding:14px 16px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:bounce 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{40%{transform:translateY(-6px);opacity:.5}}
+.mc{background:#16161d;border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:250px}
+.mc-h{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(212,175,55,.08);border-bottom:1px solid var(--line);font-size:13px;font-weight:600;color:var(--gold2);gap:10px}
+.badge{font-size:11px;background:rgba(61,220,132,.15);color:#3ddc84;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.mc-r{display:flex;justify-content:space-between;gap:16px;padding:9px 16px;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.04)}
+.mc-r:last-child{border:0}.mc-r span{color:var(--mut)}.mc-r b{font-weight:600;text-align:end}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px}
+.gal svg{width:100%;border-radius:10px;display:block;animation:pop .5s both}
+.gal svg:nth-child(2){animation-delay:.15s}.gal svg:nth-child(3){animation-delay:.3s}
+.gal-c{font-size:12px;color:var(--mut);padding:2px 16px 12px}
+.prod{display:flex;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04)}
+.prod:last-child{border:0}
+.prod i{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:24px;font-style:normal;background:linear-gradient(135deg,#2a2412,#15130a);border:1px solid var(--line);flex:none}
+.prod b{display:block;font-size:14px}.prod span{font-size:12.5px;color:var(--mut)}.prod em{margin-inline-start:auto;font-size:14px;white-space:nowrap}
+.trk{padding:16px 18px;display:flex;flex-direction:column}
+.trk div{display:flex;align-items:center;gap:12px;font-size:13.5px;padding:7px 0;color:var(--mut);position:relative}
+.trk div:before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid #3a3a42;background:var(--bg);z-index:1;flex:none}
+.trk div:not(:last-child):after{content:"";position:absolute;inset-inline-start:5px;top:24px;width:2px;height:22px;background:#2c2c33}
+.trk .done{color:var(--ink)}.trk .done:before{background:#3ddc84;border-color:#3ddc84}.trk .done:not(:last-child):after{background:#3ddc84}
+.trk .now{color:var(--gold2);font-weight:600}.trk .now:before{background:var(--gold);border-color:var(--gold);animation:pulse 1.2s infinite}
+#choices{padding:14px 16px 8px;display:flex;flex-direction:column;gap:8px;min-height:64px;border-top:1px solid rgba(255,255,255,.06);background:#0f0f14;max-height:240px;overflow-y:auto}
+.choice{text-align:start;padding:11px 16px;border-radius:14px;border:1px solid var(--line);font-size:14px;color:var(--gold2);background:rgba(212,175,55,.04);transition:.25s;animation:pop .45s both;font-family:inherit}
+.choice:hover{background:linear-gradient(120deg,var(--gold),var(--gold2));color:#111;transform:translateX(4px)}
+#ask{display:flex;gap:10px;padding:8px 16px 16px;background:#0f0f14}
+#ask input{flex:1;background:#1a1a22;border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:11px 18px;color:var(--ink);font:inherit;font-size:14px;outline:none;min-width:0}
+#ask input:focus{border-color:var(--gold)}
+#ask button{width:42px;height:42px;border-radius:50%;background:var(--gold);color:#111;font-weight:700;font-size:18px;flex:none}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:28px;position:sticky;top:100px}
+.panel h4{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-family:ui-monospace,Menlo,monospace}
+.panel>p{color:var(--mut);font-size:14px;margin-bottom:20px}
+#log{list-style:none;display:flex;flex-direction:column;gap:8px;min-height:300px;align-content:flex-start}
+#log li{display:flex;gap:12px;font-size:13.5px;padding:10px 14px;border-radius:12px;background:#0b0b0f;border:1px solid rgba(255,255,255,.05);animation:slide .5s both}
+#log li time{color:var(--mut);font-family:ui-monospace,Menlo,monospace;font-size:11.5px;padding-top:2px;flex:none;direction:ltr}
+#log li.ok:before{content:"✓";color:#3ddc84;font-weight:700}
+#log li.in:before{content:"→";color:var(--gold)}
+@keyframes slide{from{opacity:0;transform:translateX(24px)}}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)}
+.kpis b{display:block;font-family:var(--serif);font-size:28px;font-weight:400;color:var(--gold2)}
+.kpis span{font-size:11.5px;color:var(--mut);letter-spacing:.05em}
+.note{color:var(--mut);font-size:12.5px;margin-top:22px}
+.process-list{position:relative;margin-top:70px;padding-inline-start:60px;display:flex;flex-direction:column;gap:70px}
+.pline{position:absolute;inset-inline-start:19px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.08)}
+.pline i{display:block;width:100%;height:100%;background:linear-gradient(var(--gold),var(--gold2));transform:scaleY(0);transform-origin:top}
+.step{position:relative;opacity:.35;transition:opacity .6s}
+.step.on{opacity:1}
+.step:before{content:attr(data-n);position:absolute;inset-inline-start:-60px;top:0;width:40px;height:40px;border-radius:50%;background:var(--bg);border:2px solid #333;display:grid;place-items:center;font-size:13px;font-family:ui-monospace,Menlo,monospace;color:var(--mut);transition:.5s}
+.step.on:before{border-color:var(--gold);color:#111;background:var(--gold);box-shadow:0 0 30px rgba(212,175,55,.5)}
+.step h3{font-size:clamp(24px,3vw,34px);margin-bottom:10px}
+.step p{color:var(--mut);max-width:560px}
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
+.res{padding:36px 26px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg,rgba(212,175,55,.07),rgba(140,29,38,.1))}
+.res b{font-family:var(--serif);font-weight:400;font-size:64px;color:var(--gold2);line-height:1;display:block}
+.res span{display:block;margin-top:10px;color:var(--mut);font-size:14px}
+.cta{text-align:center;overflow:hidden}
+.cta h2{font-size:clamp(40px,7vw,96px);max-width:960px;margin:0 auto 24px}
+.cta .lead{margin:0 auto 40px}
+.cta .actions{justify-content:center}
+.cta:before{content:"";position:absolute;width:900px;height:700px;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 62% 50%,rgba(212,175,55,.16),transparent 62%),radial-gradient(circle at 30% 60%,rgba(140,29,38,.26),transparent 60%);pointer-events:none}
+.cta .wrap{position:relative}
+.contact{display:flex;flex-direction:column;gap:14px;margin-top:30px}
+.cta .contact{flex-direction:row;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.citem{display:flex;align-items:center;gap:16px;padding:14px 22px;border:1px solid var(--line);border-radius:16px;background:rgba(212,175,55,.04);transition:.3s;text-align:start}
+.citem:hover{border-color:var(--gold);background:rgba(212,175,55,.09)}
+.ic2{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold);flex:none}
+.citem small{display:block;font-size:12px;color:var(--mut);line-height:1.3}
+.citem b{font-size:16px;font-weight:600;word-break:break-all}
+footer{border-top:1px solid rgba(140,29,38,.5);padding:40px 0;color:var(--mut);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .logo{font-size:16px}footer .mark{width:28px;height:28px}
+.toast{position:fixed;bottom:30px;left:50%;transform:translate(-50%,40px);background:#1b1b22;border:1px solid var(--gold);padding:14px 22px;border-radius:14px;font-size:14px;opacity:0;pointer-events:none;transition:.4s;z-index:250;max-width:90vw;direction:ltr}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.cur,.cur-r{position:fixed;top:0;left:0;pointer-events:none;z-index:400;border-radius:50%;display:none}
+.cur{width:7px;height:7px;background:var(--gold);margin:-3.5px 0 0 -3.5px}
+.cur-r{width:38px;height:38px;border:1px solid rgba(212,175,55,.6);margin:-19px 0 0 -19px;transition:width .3s,height .3s,margin .3s,background .3s}
+.cur-r.big{width:70px;height:70px;margin:-35px 0 0 -35px;background:rgba(212,175,55,.1)}
+@media(hover:hover) and (pointer:fine){.cur,.cur-r{display:block}body.hascur,body.hascur *{cursor:none!important}}
+#bookpage{display:none}
+.bk{padding:150px 0 100px;min-height:100vh;position:relative;overflow:hidden}
+.bk:before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:rgba(140,29,38,.28);filter:blur(100px);top:-100px;left:-150px;pointer-events:none}
+.bk:after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(212,175,55,.14);filter:blur(100px);bottom:-120px;right:-100px;pointer-events:none}
+.bk .wrap{position:relative;z-index:1}
+.back{display:inline-block;color:var(--mut);font-size:14px;margin-bottom:34px;transition:color .3s}
+.back:hover{color:var(--gold)}
+.bk-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px;align-items:start}
+.bk h1{font-size:clamp(38px,5.4vw,68px);margin-bottom:20px}
+.steps2{display:flex;gap:26px;margin:32px 0 6px;list-style:none;flex-wrap:wrap}
+.steps2 li{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:14px;transition:color .4s}
+.steps2 b{width:34px;height:34px;border-radius:50%;border:2px solid #333;display:grid;place-items:center;font-size:13px;font-family:ui-monospace,Menlo,monospace;transition:.5s}
+.steps2 li.on{color:var(--ink)}
+.steps2 li.on b{background:var(--gold);color:#111;border-color:var(--gold);box-shadow:0 0 24px rgba(212,175,55,.45)}
+.bk-card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:36px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.fld{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.fld label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-family:ui-monospace,Menlo,monospace}
+.fld label small{color:var(--mut);letter-spacing:.04em;text-transform:none;font-family:var(--sans)}
+.fld input,.fld textarea{background:#0b0b0f;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;color:var(--ink);font:inherit;font-size:15px;outline:none;transition:.3s;width:100%}
+.fld textarea{resize:vertical;min-height:110px}
+.fld input:focus,.fld textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+#err{color:#ff8a8a;font-size:13.5px;min-height:22px;margin-bottom:6px}
+#leadForm .btn{width:100%;justify-content:center;padding:16px}
+#done{text-align:center;padding:30px 6px}
+#done .ok{width:74px;height:74px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;background:rgba(61,220,132,.12);border:2px solid #3ddc84;color:#3ddc84;font-size:34px}
+#done h2{font-size:clamp(28px,3.6vw,40px);margin-bottom:12px}
+#done p{color:var(--mut);margin-bottom:28px}
+#done small{display:block;margin-top:14px;color:var(--mut);font-size:12.5px}
+html[lang=ar] body{font-family:'Segoe UI',Tahoma,'Noto Sans Arabic',var(--sans)}
+html[lang=ar] *{letter-spacing:0!important}
+html[lang=ar] em{font-style:normal;font-family:inherit;font-weight:700}
+html[lang=ar] h1,html[lang=ar] h2,html[lang=ar] h3{line-height:1.35}
+html[lang=ar] .line{padding:.12em 0 .2em}
+html[lang=ar] .eyebrow,html[lang=ar] .fld label,html[lang=ar] .panel h4{text-transform:none;font-family:inherit}
+html[lang=ar] .choice:hover{transform:translateX(-4px)}
+html[lang=ar] .stat b,html[lang=ar] .res b,html[lang=ar] .kpis b{font-family:var(--sans);font-weight:700}
+@media(max-width:980px){.grid4,.results{grid-template-columns:repeat(2,1fr)}.demo,.bk-grid{grid-template-columns:1fr}.bk-grid{gap:36px}.panel{position:static}.links{display:none}}
+@media(max-width:560px){section{padding:84px 0}.grid4,.results{grid-template-columns:1fr}.phone{height:640px}.stats{gap:30px}.kpis b{font-size:22px}.logo .wm{display:none}.bk-card{padding:24px}.langbtn{padding:8px 14px;min-width:52px}nav.top .btn{padding:9px 14px;font-size:13px}.navr{gap:8px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8d777"/><stop offset=".55" stop-color="#e0a52c"/><stop offset="1" stop-color="#b9791a"/></linearGradient></defs>
+<symbol id="mk" viewBox="-2 -2 104 104"><g fill="#0a0a0a" stroke="url(#gg)" stroke-width="2.4" stroke-linejoin="miter"><path d="M2,5 L42,31 L43,38 L36,40 L6,17Z"/><path d="M3,23 L33,43 L33,49 L27,50 L7,36Z"/><path d="M8,40 L30,54 L31,59 L26,66 L20,55 L8,46Z"/><path d="M10,98 L15,76 L42,38 L63,16 L54,8 L95,2 L91,41 L81,27 L68,44 L55,68 L45,88 L30,96Z"/></g><g stroke="url(#gg)" stroke-width="2.6" fill="none"><path d="M17,92 L84,13"/><path d="M30,93 L76,34"/></g></symbol></svg>
+
+<div class="progress"></div>
+<div class="cur"></div><div class="cur-r"></div>
+<div class="toast" id="toast"></div>
+
+<div class="loader"><svg class="mark"><use href="#mk"/></svg><div class="lt"><span>A</span><span>R</span><span>I</span><span>S</span><span>E</span></div><div class="bar"><i></i></div></div>
+
+<nav class="top"><div class="wrap">
+  <a href="#top" class="logo"><svg class="mark"><use href="#mk"/></svg><span class="wm">ARI<b>S</b>E</span></a>
+  <div class="links"><a href="#services" data-i="nSvc">Services</a><a href="#demo" data-i="nDemo">Live Demo</a><a href="#process" data-i="nProc">Process</a><a href="#results" data-i="nRes">Results</a></div>
+  <div class="navr">
+    <button class="langbtn" id="lang" type="button">عربي</button>
+    <a href="#book" data-book class="btn gold mag" style="padding:10px 22px;font-size:14px" data-i="nBook">Schedule a call</a>
+  </div>
+</div></nav>
+
+<div id="home">
+<header class="hero" id="top">
+  <canvas id="bg"></canvas><div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="wrap content">
+    <span class="pill fade" data-i="pill">AI automation for Kuwait &amp; the Gulf</span>
+    <h1>
+      <span class="line"><span class="wi" data-i="h1a">AI that runs</span></span>
+      <span class="line"><span class="wi" data-i="h1b">your business</span></span>
+      <span class="line"><span class="wi" data-i="h1c">while you <em>sleep.</em></span></span>
+    </h1>
+    <p class="lead fade" data-i="hlead"></p>
+    <div class="actions fade">
+      <a href="#demo" class="btn gold mag" data-i="bDemo">Try the live demo →</a>
+      <a href="#services" class="btn ghost mag" data-i="bSvc">See what we automate</a>
+    </div>
+    <div class="stats fade">
+      <div class="stat"><b dir="ltr"><i data-count="24">0</i></b><span data-i="st1"></span></div>
+      <div class="stat"><b dir="ltr">&lt;<i data-count="60">0</i><i data-i="sec">s</i></b><span data-i="st2"></span></div>
+      <div class="stat"><b dir="ltr"><i data-count="2">0</i></b><span data-i="st3"></span></div>
+    </div>
+  </div>
+  <div class="scrollcue"></div>
+</header>
+
+<div class="marq"><div class="marq-track" id="mq"></div></div>
+
+<section id="services"><div class="wrap">
+  <span class="eyebrow" data-i="svEye">What we automate</span>
+  <h2 class="rv" data-i="svH"></h2>
+  <p class="lead rv" data-i="svLead"></p>
+  <div class="grid4" id="svcs"></div>
+</div></section>
+
+<section id="demo"><div class="wrap">
+  <span class="eyebrow" data-i="dmEye">Live demo</span>
+  <h2 class="rv" data-i="dmH"></h2>
+  <p class="lead rv" data-i="dmLead"></p>
+  <div class="tabs rv" id="tabs">
+    <button class="tab on" data-k="clinic"><span>🦷</span><span data-i="tabC">Clinics</span></button>
+    <button class="tab" data-k="estate"><span>🏙️</span><span data-i="tabE">Real Estate</span></button>
+    <button class="tab" data-k="ecom"><span>🛍️</span><span data-i="tabS">E-commerce</span></button>
+  </div>
+  <div class="demo rv">
+    <div class="phone">
+      <div class="phead"><div class="avatar" id="av">S</div><div><b id="pname">Smile Dental Clinic</b><small data-i="online">● online · AI assistant</small></div><button class="reset" id="reset" data-i="restart">↺ Restart</button></div>
+      <div id="msgs"></div>
+      <div id="choices"></div>
+      <form id="ask" autocomplete="off"><input id="txt" data-ph="ph"><button type="submit" aria-label="Send">➤</button></form>
+    </div>
+    <aside class="panel">
+      <h4 data-i="pnH">Behind the scenes</h4>
+      <p data-i="pnP"></p>
+      <ul id="log"></ul>
+      <div class="kpis">
+        <div><b id="k1">0</b><span data-i="k1l"></span></div>
+        <div><b id="k2">0</b><span data-i="k2l"></span></div>
+        <div><b data-i="k3v">0.8s</b><span data-i="k3l"></span></div>
+      </div>
+      <p class="note" data-i="note"></p>
+    </aside>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <span class="eyebrow" data-i="prEye">How we work</span>
+  <h2 class="rv" data-i="prH"></h2>
+  <div class="process-list">
+    <div class="pline"><i></i></div>
+    <div class="step" data-n="01"><h3 data-i="p1t">Audit</h3><p data-i="p1d"></p></div>
+    <div class="step" data-n="02"><h3 data-i="p2t">Build</h3><p data-i="p2d"></p></div>
+    <div class="step" data-n="03"><h3 data-i="p3t">Launch</h3><p data-i="p3d"></p></div>
+    <div class="step" data-n="04"><h3 data-i="p4t">Optimize</h3><p data-i="p4d"></p></div>
+  </div>
+</div></section>
+
+<section id="results" style="background:var(--bg2);border-block:1px solid var(--line)"><div class="wrap">
+  <span class="eyebrow" data-i="rsEye">The ARISE standard</span>
+  <h2 class="rv" data-i="rsH"></h2>
+  <div class="results">
+    <div class="res rv"><b dir="ltr"><i data-count="24">0</i></b><span data-i="r1"></span></div>
+    <div class="res rv"><b dir="ltr">&lt;<i data-count="60">0</i></b><span data-i="r2"></span></div>
+    <div class="res rv"><b dir="ltr"><i data-count="0">0</i></b><span data-i="r3"></span></div>
+    <div class="res rv"><b dir="ltr"><i data-count="100">0</i></b><span data-i="r4"></span></div>
+  </div>
+</div></section>
+
+<section class="cta" id="contact"><div class="wrap">
+  <span class="eyebrow" data-i="ctEye">Let's talk</span>
+  <h2 class="rv" data-i="ctH"></h2>
+  <p class="lead rv" data-i="ctLead"></p>
+  <div class="actions rv"><a href="#book" data-book class="btn gold mag" data-i="ctBtn">Schedule a call →</a></div>
+  <div class="contact rv">
+    <a class="citem js-tel" href="#"><span class="ic2"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><div><small data-i="cCall">Call us</small><b dir="ltr" class="js-phone"></b></div></a>
+    <a class="citem js-mail" href="#"><span class="ic2"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM22 6l-10 7L2 6"/></svg></span><div><small data-i="cMail">Email</small><b dir="ltr" class="js-email"></b></div></a>
+  </div>
+</div></section>
+</div>
+
+<main id="bookpage">
+  <section class="bk"><div class="wrap">
+    <a href="#top" class="back bk-in" data-i="bBack">← Back to home</a>
+    <div class="bk-grid">
+      <div>
+        <span class="eyebrow bk-in" data-i="bkEye">Schedule a call</span>
+        <h1 class="bk-in" data-i="bkH">Tell us about <em>your business.</em></h1>
+        <p class="lead bk-in" data-i="bkLead"></p>
+        <ol class="steps2 bk-in"><li class="on" id="st-1"><b>1</b><span data-i="bkS1">Your details</span></li><li id="st-2"><b>2</b><span data-i="bkS2">Pick a time</span></li></ol>
+        <div class="contact bk-in">
+          <a class="citem js-tel" href="#"><span class="ic2"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><div><small data-i="cCall">Call us</small><b dir="ltr" class="js-phone"></b></div></a>
+          <a class="citem js-mail" href="#"><span class="ic2"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM22 6l-10 7L2 6"/></svg></span><div><small data-i="cMail">Email</small><b dir="ltr" class="js-email"></b></div></a>
+        </div>
+      </div>
+      <div class="bk-card bk-in">
+        <form id="leadForm" novalidate>
+          <div class="fld"><label for="f-name" data-i="fName">Full name</label><input id="f-name" name="name" autocomplete="name" data-ph="phName"></div>
+          <div class="fld"><label for="f-phone" data-i="fPhone">Phone number</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" dir="ltr" data-ph="phPhone"></div>
+          <div class="fld"><label for="f-email" data-i="fEmail">Email address</label><input id="f-email" name="email" type="email" autocomplete="email" dir="ltr" data-ph="phEmail"></div>
+          <div class="fld"><label for="f-web"><span data-i="fWeb">Website URL</span> <small data-i="opt">(optional)</small></label><input id="f-web" name="website" dir="ltr" data-ph="phWeb"></div>
+          <div class="fld"><label for="f-notes"><span data-i="fNotes">Notes</span> <small data-i="opt">(optional)</small></label><textarea id="f-notes" name="notes" data-ph="phNotes"></textarea></div>
+          <div id="err" role="alert"></div>
+          <button class="btn gold" id="sub" type="submit" data-i="fSub">Continue →</button>
+        </form>
+        <div id="done" style="display:none">
+          <div class="ok">✓</div>
+          <h2 id="thx"></h2>
+          <p data-i="dnP"></p>
+          <a class="btn gold" id="proceed" href="#" target="_blank" rel="noopener" data-i="dnBtn">Proceed to booking page →</a>
+          <small data-i="dnSm">Opens in a new tab.</small>
+        </div>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><a href="#top" class="logo"><svg class="mark"><use href="#mk"/></svg><span class="wm">ARI<b>S</b>E</span></a><span data-i="foot"></span><span dir="ltr"><span class="js-phone"></span> · <span class="js-email"></span></span><span>© 2026 ARISE</span></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const CONFIG={
+  phone:'01044765911',
+  email:'zyadep@gmail.com',
+  calendar:'https://calendar.app.google/Mbg9yc14ADiPC1vn6',
+  sheetEndpoint:'https://script.google.com/macros/s/AKfycbxrEDOD9-C1MtdvDiyQJKTTTridGQlnHd8t5jHikrm73OMhxmeR_IYbuB0r073QDJmC/exec',
+  logoUrl:''
+};
+
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const hasG=!!window.gsap&&!!window.ScrollTrigger;
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+if(hasG)gsap.registerPlugin(ScrollTrigger);
+let lang='en';
+const T=(en,ar)=>lang==='ar'?ar:en;
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),4200)}
+
+(function(){
+  const tel='+20'+CONFIG.phone.replace(/\D/g,'').replace(/^0/,'');
+  $$('.js-phone').forEach(e=>e.textContent=CONFIG.phone);
+  $$('.js-email').forEach(e=>e.textContent=CONFIG.email);
+  $$('a.js-tel').forEach(a=>a.href='tel:'+tel);
+  $$('a.js-mail').forEach(a=>a.href='mailto:'+CONFIG.email);
+  $('#proceed').href=CONFIG.calendar;
+  if(CONFIG.logoUrl)$$('svg.mark').forEach(s=>{const i=document.createElement('img');i.className=s.getAttribute('class');i.src=CONFIG.logoUrl;i.alt='ARISE';s.replaceWith(i)});
+})();
+
+const D={
+nSvc:['Services','الخدمات'],nDemo:['Live Demo','عرض تجريبي'],nProc:['Process','طريقة العمل'],nRes:['Results','النتائج'],nBook:['Schedule a call','احجز مكالمة'],
+pill:['AI automation for Kuwait &amp; the Gulf','أتمتة بالذكاء الاصطناعي للكويت والخليج'],
+h1a:['AI that runs','ذكاء اصطناعي يدير'],h1b:['your business','عملك'],h1c:['while you <em>sleep.</em>','وأنت <em>نائم.</em>'],
+hlead:['ARISE builds WhatsApp AI agents, booking systems and lead engines for any business. Arabic and English. Replies in seconds. Live 24/7.','تبني ARISE وكلاء ذكاء اصطناعي على واتساب وأنظمة حجز ومحركات عملاء محتملين لأي نشاط تجاري. بالعربية والإنجليزية. ردود خلال ثوانٍ. تعمل على مدار الساعة.'],
+bDemo:['Try the live demo →','جرّب العرض التجريبي ←'],bSvc:['See what we automate','اكتشف ما نقوم بأتمتته'],
+st1:['HOURS A DAY, 7 DAYS A WEEK','ساعة يومياً، 7 أيام في الأسبوع'],st2:['LEAD RESPONSE TIME','زمن الرد على العميل المحتمل'],st3:['LANGUAGES: AR + EN','لغتان: العربية + الإنجليزية'],sec:['s','ث'],
+m0:['WhatsApp AI Agents','وكلاء واتساب بالذكاء الاصطناعي'],m1:['Booking','الحجوزات'],m2:['Lead Capture','جمع العملاء المحتملين'],m3:['CRM','إدارة العملاء'],m4:['Reminders','التذكيرات'],m5:['Invoicing','الفواتير'],m6:['Analytics','التحليلات'],m7:['Any Business','لأي نشاط تجاري'],
+svEye:['What we automate','ما نقوم بأتمتته'],svH:['One system. <em>Every repetitive task</em> gone.','نظام واحد. <em>كل مهمة متكررة</em> تختفي.'],
+svLead:['Your team stops answering the same questions and chasing the same follow-ups. ARISE handles it, and every action is logged.','يتوقف فريقك عن الإجابة على نفس الأسئلة وملاحقة نفس المتابعات. تتولى ARISE ذلك، ويتم تسجيل كل إجراء.'],
+s0t:['AI Auto-Reply','رد آلي بالذكاء الاصطناعي'],s0d:['Instant WhatsApp and SMS replies in Arabic and English, trained on your business.','ردود فورية على واتساب والرسائل النصية بالعربية والإنجليزية، مدرّبة على نشاطك.'],
+s1t:['Appointment Booking','حجز المواعيد'],s1d:['Customers book, change and cancel themselves, synced with your calendar.','يحجز العملاء ويعدّلون ويلغون بأنفسهم، مع مزامنة تقويمك.'],
+s2t:['Customer Records','سجلات العملاء'],s2d:['Every conversation becomes a clean record in your CRM, with no manual entry.','كل محادثة تصبح سجلاً منظماً في نظام إدارة العملاء دون إدخال يدوي.'],
+s3t:['Smart Reminders','تذكيرات ذكية'],s3d:['Automatic reminders cut no-shows and bring past customers back.','تذكيرات تلقائية تقلل الغياب وتعيد العملاء السابقين.'],
+s4t:['Billing &amp; Payments','الفواتير والمدفوعات'],s4d:['Invoices and payment links sent automatically, with follow-up on unpaid ones.','إرسال الفواتير وروابط الدفع تلقائياً مع متابعة غير المسددة.'],
+s5t:['Staff Scheduling','جدولة الموظفين'],s5d:['Shifts and workloads organised around real demand.','ورديات وأعباء عمل منظمة حسب الطلب الفعلي.'],
+s6t:['Inventory','المخزون'],s6d:['Stock levels update with every order, with alerts before you run out.','يتحدث المخزون مع كل طلب مع تنبيهات قبل النفاد.'],
+s7t:['Analytics','التحليلات'],s7d:['See leads, bookings and revenue in one live dashboard.','شاهد العملاء المحتملين والحجوزات والإيرادات في لوحة واحدة مباشرة.'],
+dmEye:['Live demo','عرض تجريبي مباشر'],dmH:['Pick your industry. <em>Watch it work.</em>','اختر مجالك. <em>وشاهده يعمل.</em>'],
+dmLead:['These are three example industries. ARISE builds the same kind of system for any business. Choose one, then talk to the AI like a real customer. Tap a suggested reply or type your own message, and the panel beside the chat shows the automations firing behind each answer.','هذه ثلاثة مجالات كأمثلة. تبني ARISE النظام نفسه لأي نشاط تجاري. اختر واحداً ثم تحدث مع الذكاء الاصطناعي كأنك عميل حقيقي. اضغط على رد مقترح أو اكتب رسالتك، وستظهر في اللوحة بجانب المحادثة الأتمتة التي تعمل خلف كل إجابة.'],
+tabC:['Clinics','العيادات'],tabE:['Real Estate','العقارات'],tabS:['E-commerce','التجارة الإلكترونية'],
+online:['● online · AI assistant','● متصل · مساعد ذكي'],restart:['↺ Restart','↺ إعادة'],ph:['Type your own message…','اكتب رسالتك…'],
+pnH:['Behind the scenes','خلف الكواليس'],pnP:['Every reply triggers real automation: bookings, CRM records, reminders and alerts.','كل رد يشغّل أتمتة حقيقية: حجوزات وسجلات عملاء وتذكيرات وتنبيهات.'],
+k1l:['MESSAGES HANDLED','رسائل تمت معالجتها'],k2l:['TASKS AUTOMATED','مهام تمت أتمتتها'],k3l:['AVG. REPLY TIME','متوسط وقت الرد'],k3v:['0.8s','0.8 ث'],
+note:['Demo uses sample businesses, prices and availability. Your system is built around your own services, calendar and catalog.','العرض يستخدم أنشطة وأسعاراً ومواعيد تجريبية. نظامك يُبنى حول خدماتك وتقويمك وكتالوجك.'],
+prEye:['How we work','كيف نعمل'],prH:['From first call to <em>live system</em> in weeks.','من أول مكالمة إلى <em>نظام يعمل</em> خلال أسابيع.'],
+p1t:['Audit','التدقيق'],p1d:['We map where you lose time and money: missed messages, no-shows, slow follow-ups. You get a clear list of what to automate first.','نحدد أين تخسر الوقت والمال: رسائل فائتة وغياب ومتابعات بطيئة. تحصل على قائمة واضحة بما يجب أتمتته أولاً.'],
+p2t:['Build','البناء'],p2d:['We design your AI agent, booking flow and CRM pipeline around your services, tone and languages, then connect everything to your tools.','نصمم وكيل الذكاء الاصطناعي ومسار الحجز وخط إدارة العملاء حول خدماتك ونبرتك ولغاتك، ثم نربط كل شيء بأدواتك.'],
+p3t:['Launch','الإطلاق'],p3d:['We test with real conversations, train your team in an hour, and go live on WhatsApp, SMS and your website.','نختبر بمحادثات حقيقية، وندرب فريقك خلال ساعة، ثم نبدأ العمل على واتساب والرسائل النصية وموقعك.'],
+p4t:['Optimize','التحسين'],p4d:['We review conversations and analytics every month, then tune replies and flows so results keep improving.','نراجع المحادثات والتحليلات شهرياً ثم نضبط الردود والمسارات لتستمر النتائج بالتحسن.'],
+rsEye:['The ARISE standard','معيار ARISE'],rsH:['Built to <em>never miss</em> a customer.','مصمم كي <em>لا يفوتك</em> أي عميل.'],
+r1:['hours a day, 7 days a week','ساعة في اليوم، 7 أيام في الأسبوع'],r2:['seconds to respond to a new lead','ثانية للرد على عميل جديد'],r3:['messages left on read','رسائل متروكة دون رد'],r4:['% of actions logged and visible','% من الإجراءات مسجلة وظاهرة'],
+ctEye:["Let's talk",'لنتحدث'],ctH:['Ready to <em>rise</em> above the busywork?','جاهز لتتجاوز <em>العمل الروتيني؟</em>'],ctLead:["Book a free call and we'll show you exactly what we would automate in your business.",'احجز مكالمة مجانية وسنريك بالضبط ما الذي سنقوم بأتمتته في عملك.'],ctBtn:['Schedule a call →','احجز مكالمة ←'],
+cCall:['Call us','اتصل بنا'],cMail:['Email','البريد الإلكتروني'],
+foot:['AI automation for any business · Kuwait &amp; the Gulf','أتمتة بالذكاء الاصطناعي لأي نشاط تجاري · الكويت والخليج'],
+bBack:['← Back to home','→ العودة للرئيسية'],bkEye:['Schedule a call','احجز مكالمة'],bkH:['Tell us about <em>your business.</em>','أخبرنا عن <em>عملك.</em>'],
+bkLead:['Fill in your details, then pick a time that suits you from our calendar.','املأ بياناتك ثم اختر الوقت المناسب لك من تقويمنا.'],bkS1:['Your details','بياناتك'],bkS2:['Pick a time','اختر الوقت'],
+fName:['Full name','الاسم الكامل'],fPhone:['Phone number','رقم الهاتف'],fEmail:['Email address','البريد الإلكتروني'],fWeb:['Website URL','رابط الموقع الإلكتروني'],fNotes:['Notes','ملاحظات'],opt:['(optional)','(اختياري)'],
+phName:['Your name','اسمك'],phPhone:['+965 … or 01…','+965 … أو 01…'],phEmail:['you@company.com','you@company.com'],phWeb:['https://yourwebsite.com','https://yourwebsite.com'],phNotes:['Tell us what you would like to automate','أخبرنا بما تريد أتمتته'],
+fSub:['Continue →','متابعة ←'],dnP:['Your details are saved. Pick a time that works for you from our calendar.','تم حفظ بياناتك. اختر الوقت المناسب لك من تقويمنا.'],dnBtn:['Proceed to booking page →','المتابعة إلى صفحة الحجز ←'],dnSm:['Opens in a new tab.','يفتح في تبويب جديد.']
+};
+const DICT={en:{},ar:{}};for(const k in D){DICT.en[k]=D[k][0];DICT.ar[k]=D[k][1]}
+
+const IC={chat:'M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z',cal:'M7 3v4M17 3v4M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z',users:'M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM20 19v-1.5a3.5 3.5 0 0 0-2.5-3.3M15.5 4.2a3.5 3.5 0 0 1 0 6.6',bell:'M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16l-2-2zM10 21h4',chart:'M4 20V10M10 20V4M16 20v-8M22 20H2',card:'M3 6h18v12H3zM3 10h18',box:'M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8',clock:'M12 7v5l3 2M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z'};
+['chat','cal','users','bell','card','clock','box','chart'].forEach((ic,i)=>{$('#svcs').insertAdjacentHTML('beforeend',`<div class="card rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="${IC[ic]}"/></svg></div><h3 data-i="s${i}t"></h3><p data-i="s${i}d"></p></div>`)});
+$('#mq').innerHTML=Array.from({length:4},()=>[0,1,2,3,4,5,6,7].map(n=>`<span data-i="m${n}"></span><span>✦</span>`).join('')).join('');
+
+(function(){
+  const c=$('#bg'),x=c.getContext('2d');let w,h,d,pts=[],m={x:-9999,y:-9999},on=true;
+  function size(){const r=c.parentElement.getBoundingClientRect();if(!r.width)return;d=Math.min(devicePixelRatio||1,2);w=c.width=r.width*d;h=c.height=r.height*d;c.style.width=r.width+'px';c.style.height=r.height+'px';const n=Math.round(Math.min(90,r.width/14));pts=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.4*d,vy:(Math.random()-.5)*.4*d,r:(Math.random()*1.5+.6)*d,red:Math.random()<.28}))}
+  size();addEventListener('resize',size);
+  c.parentElement.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();m.x=(e.clientX-r.left)*d;m.y=(e.clientY-r.top)*d});
+  c.parentElement.addEventListener('mouseleave',()=>{m.x=m.y=-9999});
+  new IntersectionObserver(e=>on=e[0].isIntersecting).observe(c);
+  (function loop(){requestAnimationFrame(loop);if(!on||reduce||!w)return;x.clearRect(0,0,w,h);const L=130*d;
+    for(let i=0;i<pts.length;i++){const p=pts[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+      const dx=p.x-m.x,dy=p.y-m.y,dd=Math.hypot(dx,dy);if(dd<160*d){p.x+=dx/dd*1.6;p.y+=dy/dd*1.6}
+      x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fillStyle=p.red?'rgba(179,38,50,.8)':'rgba(212,175,55,.75)';x.fill();
+      for(let j=i+1;j<pts.length;j++){const q=pts[j],l=Math.hypot(p.x-q.x,p.y-q.y);if(l<L){x.strokeStyle='rgba(212,175,55,'+(.22*(1-l/L))+')';x.lineWidth=d*.7;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}}}
+  })();
+})();
+
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const KWD=n=>lang==='ar'?Math.round(n).toLocaleString('en-US')+' د.ك':'KWD '+Math.round(n).toLocaleString('en-US');
+const KWD3=n=>lang==='ar'?n.toFixed(3)+' د.ك':'KWD '+n.toFixed(3);
+const AN={Salmiya:'السالمية',Hawally:'حولي','Kuwait City':'مدينة الكويت',Jabriya:'الجابرية','2BR Apartment':'شقة غرفتين','3BR Apartment':'شقة 3 غرف',Villa:'فيلا',
+'Oud perfume':'عطر عود','Leather tote':'حقيبة جلدية','Smart watch':'ساعة ذكية','50 ml':'50 مل','100 ml':'100 مل',Black:'أسود',Tan:'بني فاتح','Black strap':'حزام أسود','Gold strap':'حزام ذهبي',
+'Cleaning & check-up':'تنظيف وفحص','Teeth whitening':'تبييض الأسنان','Braces consultation':'استشارة تقويم','Root canal / pain check':'علاج عصب / فحص ألم','Urgent pain visit':'زيارة ألم طارئة',
+Tomorrow:'غداً',Today:'اليوم',Tuesday:'الثلاثاء',Wednesday:'الأربعاء','10:00 AM':'10:00 ص','1:30 PM':'1:30 م','6:00 PM':'6:00 م','4:30 PM':'4:30 م',
+'Today evening':'مساء اليوم','This weekend':'نهاية الأسبوع',KNET:'كي نت','Credit card':'بطاقة ائتمان','Cash on delivery':'الدفع عند الاستلام',
+'Under KWD 350 / month':'أقل من 350 د.ك / شهر','KWD 350 – 600':'350 – 600 د.ك','KWD 600+':'أكثر من 600 د.ك',
+'1BR Apartment · Hawally':'شقة غرفة · حولي','2BR Apartment · Salmiya':'شقة غرفتين · السالمية','3BR Sea-view · Salmiya':'شقة 3 غرف بإطلالة بحرية · السالمية'};
+const N=k=>lang==='ar'?(AN[k]||k):k;
+const SCN={
+sea:`<svg viewBox="0 0 120 90"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6c36b"/><stop offset=".6" stop-color="#e98d57"/><stop offset="1" stop-color="#3b4a77"/></linearGradient></defs><rect width="120" height="90" fill="url(#g1)"/><circle cx="82" cy="36" r="11" fill="#fff3c4"/><rect y="56" width="120" height="34" fill="#25355e"/><path d="M0 62q10-4 20 0t20 0 20 0 20 0 20 0v6H0z" fill="#3a4f86"/><rect x="12" y="30" width="9" height="28" fill="#1a2240"/><rect x="24" y="22" width="11" height="36" fill="#141b36"/><rect x="38" y="34" width="8" height="24" fill="#1a2240"/></svg>`,
+liv:`<svg viewBox="0 0 120 90"><rect width="120" height="90" fill="#d9cfbf"/><rect y="64" width="120" height="26" fill="#8a6f52"/><rect x="74" y="12" width="34" height="38" rx="2" fill="#a9d4ee"/><path d="M91 12v38M74 31h34" stroke="#d9cfbf" stroke-width="2"/><rect x="14" y="40" width="54" height="26" rx="8" fill="#3d4f66"/><rect x="10" y="48" width="12" height="20" rx="5" fill="#2f3e52"/><rect x="60" y="48" width="12" height="20" rx="5" fill="#2f3e52"/><rect x="82" y="56" width="3" height="22" fill="#222"/><path d="M76 56h19l-4-10H80z" fill="#f2c94c"/></svg>`,
+kit:`<svg viewBox="0 0 120 90"><rect width="120" height="90" fill="#e8e4dc"/><rect y="62" width="120" height="28" fill="#b9a48a"/><rect x="8" y="12" width="40" height="22" fill="#fff"/><rect x="52" y="12" width="40" height="22" fill="#f4f1ea"/><rect x="96" y="12" width="18" height="22" fill="#fff"/><rect x="14" y="52" width="92" height="22" rx="3" fill="#2d3a4a"/><rect x="14" y="48" width="92" height="6" fill="#e6e0d2"/><path d="M36 0v22M60 0v22M84 0v22" stroke="#222" stroke-width="1"/><circle cx="36" cy="26" r="5" fill="#f2c94c"/><circle cx="60" cy="26" r="5" fill="#f2c94c"/><circle cx="84" cy="26" r="5" fill="#f2c94c"/></svg>`};
+const AREA={Salmiya:88000,Hawally:72000,'Kuwait City':110000,Jabriya:80000},TYPE={'2BR Apartment':1,'3BR Apartment':1.4,Villa:3.6};
+const PRICE={'Oud perfume':{'50 ml':24,'100 ml':39},'Leather tote':{Black:38,Tan:38},'Smart watch':{'Black strap':45,'Gold strap':45}};
+const RENT={'Under KWD 350 / month':['1BR Apartment · Hawally',320],'KWD 350 – 600':['2BR Apartment · Salmiya',480],'KWD 600+':['3BR Sea-view · Salmiya',750]};
+const mini=(title,rows,badge)=>({mini:{title,rows,badge}});
+const back=()=>({t:T('Back to main menu','العودة للقائمة الرئيسية'),go:'home'});
+const CL=()=>[{t:T('I want to book an appointment for my teeth','أريد حجز موعد لأسناني'),go:'treat'},{t:T('How much is teeth whitening?','كم سعر تبييض الأسنان؟'),go:'price'},{t:T('Where are you and when are you open?','أين موقعكم ومتى ساعات العمل؟'),go:'hours'},{t:T('I have a toothache','عندي ألم في أسناني'),go:'urgent'}];
+const ES=()=>[{t:T('What is my property worth?','كم قيمة عقاري؟'),go:'valArea'},{t:T('Show me apartments for sale','أرني شققاً للبيع'),go:'listings'},{t:T('I want to rent a place','أريد استئجار مكان'),go:'rentBudget'},{t:T('Talk to an agent','التحدث مع وسيط'),go:'agent'}];
+const EC=()=>[{t:T('I want to order a product','أريد طلب منتج'),go:'catalog'},{t:T("Where's my order?",'أين طلبي؟'),go:'track'},{t:T('I want to return something','أريد إرجاع منتج'),go:'return'},{t:T('Do you have any offers?','هل لديكم عروض؟'),go:'offers'}];
+const NAMES={clinic:['Smile Dental Clinic','عيادة سمايل للأسنان','S','س'],estate:['Gulf Heights Realty','غلف هايتس العقارية','G','غ'],ecom:['Noor Store','متجر نور','N','ن']};
+
+const F={
+clinic:{kw:[[/book|appoint|schedul|clean|check.?up|dentist|slot|موعد|حجز|احجز|تنظيف/i,'treat'],[/price|cost|how much|whiten|سعر|كم|تبييض|تكلفة/i,'price'],[/hour|open|where|locat|address|time|ساعات|موقع|عنوان|وين|أين|متى/i,'hours'],[/pain|ache|hurt|urgent|emergen|ألم|وجع|طارئ/i,'urgent'],[/human|person|reception|staff|موظف|استقبال|شخص/i,'human']],
+ nodes:{
+  menu:{say:()=>[T("Hello! 👋 Welcome to Smile Dental Clinic. I'm the clinic's AI assistant, available 24/7. How can I help you today?","مرحباً! 👋 أهلاً بك في عيادة سمايل للأسنان. أنا المساعد الذكي للعيادة ومتاح على مدار الساعة. كيف يمكنني مساعدتك اليوم؟")],choices:CL},
+  home:{say:()=>[T("Of course. What else can I help you with?","بالتأكيد. بماذا يمكنني مساعدتك أيضاً؟")],choices:CL},
+  treat:{intent:()=>T('Book appointment','حجز موعد'),say:()=>[T("Happy to help! What would you like to book?","يسعدني ذلك! ما الذي تود حجزه؟")],choices:()=>['Cleaning & check-up','Teeth whitening','Braces consultation','Root canal / pain check'].map(k=>({t:N(k),go:'day',set:{treatment:k}}))},
+  day:{say:s=>[T(`${s.treatment}, noted. Which day suits you?`,`${N(s.treatment)}، تم. أي يوم يناسبك؟`)],choices:()=>['Tomorrow','Tuesday','Wednesday'].map(k=>({t:N(k),go:'time',set:{day:k}}))},
+  time:{log:()=>[T('Calendar checked: 3 free slots found','تم فحص التقويم: 3 مواعيد متاحة')],say:s=>[T(`Here is what is open ${s.day==='Tomorrow'?'tomorrow':'on '+s.day}. Which time works?`,`هذه المواعيد المتاحة ${s.day==='Tomorrow'?'غداً':'يوم '+N(s.day)}. أي وقت يناسبك؟`)],choices:()=>['10:00 AM','1:30 PM','6:00 PM'].map(k=>({t:N(k),go:'confirm',set:{time:k}}))},
+  confirm:{log:()=>[T('Appointment created in calendar','تم إنشاء الموعد في التقويم'),T('Patient record created','تم إنشاء ملف المريض'),T('Reminders scheduled (24h + 2h)','تمت جدولة التذكيرات (قبل 24 ساعة وقبل ساعتين)'),T('Confirmation sent on WhatsApp','تم إرسال التأكيد عبر واتساب')],
+   say:s=>[T("You're booked! Here are your details:","تم حجز موعدك! هذه تفاصيله:"),mini(T('Appointment','الموعد'),[[T('Treatment','العلاج'),N(s.treatment)],[T('Day','اليوم'),N(s.day)],[T('Time','الوقت'),N(s.time)],[T('Doctor','الطبيبة'),T('Dr. Hessa','د. حصة')]],T('Confirmed','مؤكد')),T("A confirmation is on its way to your WhatsApp. I'll remind you 24 hours and 2 hours before.","التأكيد في طريقه إلى واتساب الخاص بك. سأذكّرك قبل 24 ساعة وقبل ساعتين.")],
+   choices:()=>[{t:T('Change the time','تغيير الوقت'),go:'day'},{t:T("That's all, thank you!",'هذا كل شيء، شكراً!'),go:'bye'}]},
+  bye:{say:()=>[T("You're welcome. See you soon, and keep smiling! 😁","عفواً. نراك قريباً، ودمتَ مبتسماً! 😁")],choices:()=>[{t:T('Start a new conversation','بدء محادثة جديدة'),go:'menu'}]},
+  price:{intent:()=>T('Price enquiry','استفسار عن الأسعار'),log:()=>[T('Price list sent','تم إرسال قائمة الأسعار')],say:()=>[T("Teeth whitening starts from KWD 60 for an in-office session of about 60 minutes.","يبدأ تبييض الأسنان من 60 د.ك لجلسة في العيادة مدتها نحو 60 دقيقة."),mini(T('Treatment prices','أسعار العلاجات'),[[N('Cleaning & check-up'),KWD(15)],[N('Teeth whitening'),T('from ','من ')+KWD(60)],[N('Braces consultation'),T('Free','مجاناً')],[T('Root canal consult','استشارة علاج العصب'),KWD(10)]])],choices:()=>[{t:T('Book teeth whitening','احجز تبييض الأسنان'),go:'day',set:{treatment:'Teeth whitening'}},back()]},
+  hours:{intent:()=>T('Hours & location','الساعات والموقع'),log:()=>[T('Location pin sent','تم إرسال موقع العيادة')],say:()=>[T("We're open Sunday to Thursday 9 AM – 9 PM, and Saturday 10 AM – 4 PM. Closed on Fridays.","نعمل من الأحد إلى الخميس من 9 ص إلى 9 م، والسبت من 10 ص إلى 4 م. الجمعة إجازة."),T("📍 We're in Salmiya, Kuwait. I've sent the Google Maps pin to your phone.","📍 نحن في السالمية، الكويت. أرسلت موقعنا على خرائط جوجل إلى هاتفك.")],choices:()=>[{t:T('Book an appointment','احجز موعداً'),go:'treat'},back()]},
+  urgent:{intent:()=>T('Urgent pain','ألم طارئ'),log:()=>[T('Case flagged as urgent','تم تصنيف الحالة كطارئة'),T('Emergency slot found','تم إيجاد موعد طارئ')],say:()=>[T("I'm sorry you're in pain. Let's get you seen quickly. I have an emergency slot today at 4:30 PM with Dr. Hessa.","آسف لأنك تتألم. دعنا نجعل الطبيبة تراك بسرعة. لدي موعد طارئ اليوم الساعة 4:30 م مع د. حصة.")],choices:()=>[{t:T('Take the 4:30 PM slot','احجز موعد 4:30 م'),go:'confirm',set:{treatment:'Urgent pain visit',day:'Today',time:'4:30 PM'}},{t:T('Talk to reception','التحدث مع الاستقبال'),go:'human'}]},
+  human:{log:()=>[T('Conversation escalated to reception','تم تحويل المحادثة إلى الاستقبال'),T('Chat summary sent to staff','تم إرسال ملخص المحادثة للموظفين')],say:()=>[T("Connecting you to our reception team now. I've sent them a summary, so you won't need to repeat yourself.","أحوّلك الآن إلى فريق الاستقبال. أرسلت لهم ملخصاً حتى لا تضطر لتكرار كلامك.")],choices:()=>[back()]}
+ }},
+estate:{kw:[[/value|worth|valuat|evaluat|قيمة|تقييم|يسوى|كم سعر/i,'valArea'],[/photo|picture|image|gallery|pics|صور/i,'gallery'],[/rent|إيجار|ايجار|استئجار/i,'rentBudget'],[/buy|sale|apartment|villa|show|listing|شقة|شقق|فيلا|بيع|شراء|للبيع/i,'listings'],[/view|visit|tour|معاينة|زيارة/i,'visit'],[/agent|human|person|وسيط|موظف/i,'agent']],
+ nodes:{
+  menu:{say:()=>[T("Hi! 👋 I'm the AI assistant at Gulf Heights Realty. Are you looking to buy, rent, or find out what your property is worth?","مرحباً! 👋 أنا المساعد الذكي في غلف هايتس العقارية. هل تبحث عن شراء أو إيجار، أم تريد معرفة قيمة عقارك؟")],choices:ES},
+  home:{say:()=>[T("Sure. What else would you like to do?","بالتأكيد. ماذا تود أن تفعل أيضاً؟")],choices:ES},
+  valArea:{intent:()=>T('Property valuation','تقييم عقار'),say:()=>[T("I can estimate that in seconds. Which area is your property in?","يمكنني تقدير ذلك خلال ثوانٍ. في أي منطقة يقع عقارك؟")],choices:()=>Object.keys(AREA).map(k=>({t:N(k),go:'valType',set:{area:k}}))},
+  valType:{say:s=>[T(`${s.area}, great. What type of property is it?`,`${N(s.area)}، ممتاز. ما نوع العقار؟`)],choices:()=>Object.keys(TYPE).map(k=>({t:N(k),go:'valResult',set:{ptype:k}}))},
+  valResult:{log:()=>[T('Recent sales in the area analysed','تم تحليل المبيعات الأخيرة في المنطقة'),T('Valuation estimate generated','تم إنشاء تقدير القيمة'),T('Lead saved to CRM','تم حفظ العميل المحتمل في النظام')],
+   say:s=>{const e=AREA[s.area]*TYPE[s.ptype];return[T("Here is your instant estimate:","هذا تقديرك الفوري:"),mini(T('Property valuation','تقييم العقار'),[[T('Property','العقار'),`${N(s.ptype)}${T(', ','، ')}${N(s.area)}`],[T('Estimated value','القيمة التقديرية'),`${KWD(e*.92)} – ${KWD(e*1.08)}`],[T('Comparable sales used','مبيعات مقارنة'),'12'],[T('Confidence','مستوى الثقة'),T('High','عالٍ')]],T('Instant','فوري')),T("This is an automated estimate. A free on-site valuation gives you an exact figure.","هذا تقدير آلي. التقييم المجاني في الموقع يعطيك رقماً دقيقاً.")]},
+   choices:()=>[{t:T('Show photos of similar properties','أرني صوراً لعقارات مشابهة'),go:'gallery'},{t:T('Book a free valuation visit','احجز زيارة تقييم مجانية'),go:'visit'},back()]},
+  listings:{intent:()=>T('Property search','البحث عن عقار'),log:()=>[T('Matching listings found: 3','تم العثور على 3 عقارات مطابقة'),T('Top match sent','تم إرسال أفضل خيار')],say:()=>[T("I found a great match for you:","وجدت لك خياراً ممتازاً:"),{prop:{title:T('Sea-view 3BR Apartment','شقة 3 غرف بإطلالة بحرية'),meta:T('Salmiya · 168 m² · Ready to move in','السالمية · 168 م² · جاهزة للسكن'),price:KWD(185000)}}],choices:()=>[{t:T('Send me the photos','أرسل لي الصور'),go:'gallery'},{t:T('What are the price & payment terms?','ما السعر وشروط الدفع؟'),go:'terms'},{t:T('Book a viewing','احجز معاينة'),go:'visit'}]},
+  gallery:{log:()=>[T('Photo album sent via WhatsApp','تم إرسال ألبوم الصور عبر واتساب')],say:()=>[T("Here are some photos:","هذه بعض الصور:"),{gallery:true}],choices:()=>[{t:T('What are the price & payment terms?','ما السعر وشروط الدفع؟'),go:'terms'},{t:T('Book a viewing','احجز معاينة'),go:'visit'},back()]},
+  terms:{log:()=>[T('Payment plan sent','تم إرسال خطة الدفع')],say:()=>[T("Here's the breakdown:","هذه التفاصيل:"),mini(T('Sea-view 3BR, Salmiya','شقة 3 غرف بإطلالة بحرية، السالمية'),[[T('Price','السعر'),KWD(185000)],[T('Down payment','الدفعة الأولى'),'20% ('+KWD(37000)+')'],[T('Financing','التمويل'),T('Bank financing available','التمويل البنكي متاح')],[T('Service charge','رسوم الخدمة'),KWD(35)+T(' / month',' / شهر')]])],choices:()=>[{t:T('Book a viewing','احجز معاينة'),go:'visit'},{t:T('Talk to an agent','التحدث مع وسيط'),go:'agent'}]},
+  rentBudget:{intent:()=>T('Rental search','البحث عن إيجار'),say:()=>[T("Happy to help you find a place to rent. What's your monthly budget?","يسعدني مساعدتك في إيجاد مكان للإيجار. ما ميزانيتك الشهرية؟")],choices:()=>Object.keys(RENT).map(k=>({t:N(k),go:'rentResult',set:{budget:k}}))},
+  rentResult:{log:()=>[T('Rental matches found: 3','تم العثور على 3 خيارات للإيجار')],say:s=>[T("I found 3 options in your budget. Here is the top match:","وجدت 3 خيارات ضمن ميزانيتك. هذا أفضلها:"),{prop:{title:N(RENT[s.budget][0]),meta:T('Furnished option available','خيار مفروش متاح'),price:KWD(RENT[s.budget][1])+T(' / month',' / شهر')}}],choices:()=>[{t:T('Send me the photos','أرسل لي الصور'),go:'gallery'},{t:T('Book a viewing','احجز معاينة'),go:'visit'}]},
+  visit:{say:()=>[T("When would you like to view it?","متى تود المعاينة؟")],choices:()=>['Today evening','Tomorrow','This weekend'].map(k=>({t:N(k),go:'lead',set:{vday:k}}))},
+  lead:{log:()=>[T('Lead qualified in under 60 seconds','تم تأهيل العميل خلال أقل من 60 ثانية'),T('Added to CRM','تمت الإضافة إلى نظام العملاء'),T('Viewing booked, agent notified','تم حجز المعاينة وإبلاغ الوسيط'),T('Follow-up sequence started','بدأت سلسلة المتابعة')],
+   say:s=>[T("Your viewing is booked!","تم حجز معاينتك!"),mini(T('Viewing confirmed','تأكيد المعاينة'),[[T('When','الموعد'),N(s.vday)],[T('Agent','الوسيط'),T('Fahad Al-Rashid','فهد الراشد')],[T('Interest','الاهتمام'),T('Sea-view 3BR, Salmiya','شقة 3 غرف بإطلالة بحرية، السالمية')],[T('Lead status','حالة العميل'),T('Hot lead','عميل مهتم جداً')]],T('Confirmed','مؤكد')),T("Fahad has been notified and will meet you there. I'll send the location pin 1 hour before.","تم إبلاغ فهد وسيقابلك هناك. سأرسل موقع العقار قبل ساعة.")],
+   choices:()=>[{t:T('Start over','ابدأ من جديد'),go:'menu'}]},
+  agent:{log:()=>[T('Conversation handed to a human agent','تم تحويل المحادثة إلى وسيط'),T('Lead summary sent to agent','تم إرسال ملخص العميل للوسيط')],say:()=>[T("I'm connecting you with one of our agents now. I've shared everything we discussed so you won't need to repeat yourself.","أحوّلك الآن إلى أحد وسطائنا. شاركت معه كل ما تحدثنا عنه حتى لا تكرر كلامك.")],choices:()=>[back()]}
+ }},
+ecom:{kw:[[/return|refund|exchange|إرجاع|ارجاع|استرجاع|استبدال/i,'return'],[/track|where|status|deliver|parcel|تتبع|أين|وين|توصيل|شحنة/i,'track'],[/offer|discount|promo|sale|code|deal|عرض|عروض|خصم|كود/i,'offers'],[/order|buy|want|product|shop|catalog|طلب|اطلب|منتج|شراء|تسوق/i,'catalog']],
+ nodes:{
+  menu:{say:()=>[T("Welcome to Noor Store! ✨ I'm your AI shopping assistant. I can take your order, track a delivery, or help with returns.","أهلاً بك في متجر نور! ✨ أنا مساعد التسوق الذكي. يمكنني تسجيل طلبك أو تتبع التوصيل أو مساعدتك في الإرجاع.")],choices:EC},
+  home:{say:()=>[T("Sure. What else can I do for you?","بالتأكيد. ماذا يمكنني أن أفعل لك أيضاً؟")],choices:EC},
+  catalog:{intent:()=>T('New order','طلب جديد'),say:()=>[T("Here are today's bestsellers. Which one would you like?","هذه المنتجات الأكثر مبيعاً اليوم. أيها تريد؟"),{products:true}],choices:()=>Object.keys(PRICE).map(k=>({t:N(k),go:'opt',set:{product:k}}))},
+  opt:{say:s=>[T(`${s.product}, great choice! Which option would you like?`,`${N(s.product)}، اختيار رائع! أي خيار تفضّل؟`)],choices:s=>Object.keys(PRICE[s.product]).map(k=>({t:N(k),go:'pay',set:{opt:k}}))},
+  pay:{say:s=>[T(`${s.product} (${s.opt}) is ${KWD(PRICE[s.product][s.opt])}. How would you like to pay?`,`${N(s.product)} (${N(s.opt)}) بسعر ${KWD(PRICE[s.product][s.opt])}. كيف تود الدفع؟`)],choices:()=>['KNET','Credit card','Cash on delivery'].map(k=>({t:N(k),go:'order',set:{pay:k}}))},
+  order:{log:()=>[T('Order created in store system','تم إنشاء الطلب في نظام المتجر'),T('Stock updated automatically','تم تحديث المخزون تلقائياً'),T('Invoice sent on WhatsApp','تم إرسال الفاتورة عبر واتساب'),T('Courier booking requested','تم طلب شركة التوصيل')],
+   say:s=>{const p=PRICE[s.product][s.opt];s.oid='NS-'+(20000+Math.floor(Math.random()*9000));return[T("Order confirmed! 🎉","تم تأكيد طلبك! 🎉"),mini(T('Order ','الطلب ')+s.oid,[[T('Item','المنتج'),`${N(s.product)} (${N(s.opt)})`],[T('Delivery','التوصيل'),KWD3(1.5)],[T('Total','الإجمالي'),KWD3(p+1.5)],[T('Payment','الدفع'),N(s.pay)],[T('Arrives','الوصول'),T('Within 2 days','خلال يومين')]],T('Paid','مدفوع')),s.pay==='Cash on delivery'?T("You'll pay the courier when it arrives.","ستدفع للمندوب عند الاستلام."):T("A secure payment link and your invoice are on the way.","رابط دفع آمن وفاتورتك في الطريق إليك.")]},
+   choices:()=>[{t:T('Track my order','تتبع طلبي'),go:'track'},{t:T('Add another item','أضف منتجاً آخر'),go:'catalog'},{t:T("That's all, thanks!",'هذا كل شيء، شكراً!'),go:'bye'}]},
+  bye:{say:()=>[T("Thank you for shopping with Noor Store! 💛","شكراً لتسوقك من متجر نور! 💛")],choices:()=>[{t:T('Start a new conversation','بدء محادثة جديدة'),go:'menu'}]},
+  track:{intent:()=>T('Order tracking','تتبع الطلب'),log:()=>[T('Courier system checked','تم فحص نظام شركة التوصيل'),T('Live status retrieved','تم جلب الحالة المباشرة')],say:()=>[T("Your order is on the way! Here is the live status:","طلبك في الطريق! هذه حالته المباشرة:"),{track:true}],choices:()=>[back()]},
+  return:{intent:()=>T('Return request','طلب إرجاع'),say:()=>[T("Sorry it wasn't right! You can return items within 14 days, and I can arrange a free pickup.","آسف لأنه لم يعجبك! يمكنك إرجاع المنتجات خلال 14 يوماً ويمكنني ترتيب استلام مجاني.")],choices:()=>[{t:T('Start a return','ابدأ الإرجاع'),go:'retDone'},back()]},
+  retDone:{log:()=>[T('Return ticket created','تم إنشاء طلب الإرجاع'),T('Pickup scheduled','تمت جدولة الاستلام'),T('Refund process started','بدأت عملية الاسترداد')],say:()=>[T("Done! Your return is registered.","تم! تم تسجيل طلب الإرجاع."),mini(T('Return confirmed','تأكيد الإرجاع'),[[T('Pickup','الاستلام'),T('Tomorrow, 4–8 PM','غداً، 4–8 م')],[T('Refund','الاسترداد'),T('Within 3 days of pickup','خلال 3 أيام من الاستلام')]],T('Done','تم'))],choices:()=>[back()]},
+  offers:{intent:()=>T('Offers','العروض'),log:()=>[T('Personalised offer generated','تم إنشاء عرض مخصص')],say:()=>[T("Here is what's on today:","هذه عروض اليوم:"),mini(T("Today's offer",'عرض اليوم'),[[T('Code','الكود'),'NOOR15'],[T('Discount','الخصم'),T('15% off your order','خصم 15% على طلبك')],[T('Free delivery','توصيل مجاني'),T('Over KWD 30','للطلبات فوق 30 د.ك')]],T('Active','فعّال'))],choices:()=>[{t:T('Shop now','تسوق الآن'),go:'catalog'},back()]}
+ }}
+};
+
+const msgs=$('#msgs'),chs=$('#choices'),logEl=$('#log');
+let cur='clinic',S={},token=0,busy=false,lastCh=[],nMsg=0,nTask=0,started=false;
+function bump(){$('#k1').textContent=nMsg;$('#k2').textContent=nTask}
+function scrollDown(){msgs.scrollTo({top:msgs.scrollHeight,behavior:'smooth'})}
+function addLog(t,type='ok'){const li=document.createElement('li');li.className=type;li.innerHTML=`<time>${new Date().toLocaleTimeString('en-GB')}</time><span>${t}</span>`;logEl.prepend(li);while(logEl.children.length>8)logEl.lastChild.remove();if(type==='ok'){nTask++;bump()}}
+function bubble(cls,html){const b=document.createElement('div');b.className='b '+cls;b.innerHTML=html;msgs.appendChild(b);scrollDown();return b}
+function cardHTML(it){
+  if(it.mini){const m=it.mini;return `<div class="mc"><div class="mc-h"><span>${m.title}</span>${m.badge?`<span class="badge">${m.badge}</span>`:''}</div>${m.rows.map(r=>`<div class="mc-r"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}</div>`}
+  if(it.prop){const p=it.prop;return `<div class="mc">${SCN.sea.replace('<svg ','<svg style="width:100%;display:block" ')}<div class="mc-r"><span>${p.title}</span><b>${p.price}</b></div><div class="mc-r"><span>${p.meta}</span></div></div>`}
+  if(it.gallery)return `<div class="mc"><div class="gal">${SCN.sea}${SCN.liv}${SCN.kit}</div><div class="gal-c">${T('Sea view · Living room · Kitchen (sample images)','إطلالة بحرية · غرفة المعيشة · المطبخ (صور توضيحية)')}</div></div>`;
+  if(it.products)return `<div class="mc">${[['🧴','Oud perfume',T('50 / 100 ml','50 / 100 مل'),T('from KWD 24','من 24 د.ك')],['👜','Leather tote',T('Black / Tan','أسود / بني فاتح'),KWD(38)],['⌚','Smart watch',T('Black / Gold strap','حزام أسود / ذهبي'),KWD(45)]].map(p=>`<div class="prod"><i>${p[0]}</i><div><b>${N(p[1])}</b><span>${p[2]}</span></div><em>${p[3]}</em></div>`).join('')}</div>`;
+  if(it.track)return `<div class="mc"><div class="mc-h"><span>${T('Order ','الطلب ')}NS-20418</span><span class="badge">${T('On the way','في الطريق')}</span></div><div class="trk"><div class="done">${T('Order confirmed','تم تأكيد الطلب')}</div><div class="done">${T('Packed','تم التجهيز')}</div><div class="done">${T('Shipped','تم الشحن')}</div><div class="now">${T('Out for delivery · arriving today','خرج للتوصيل · يصل اليوم')}</div><div>${T('Delivered','تم التسليم')}</div></div></div>`;
+  return ''}
+async function typing(){const t=bubble('bot typing','<i></i><i></i><i></i>');await wait(620);t.remove()}
+function showChoices(list){lastCh=list;chs.innerHTML='';list.forEach((c,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=c.t;b.style.animationDelay=(i*.07)+'s';b.onclick=()=>pick(c);chs.appendChild(b)})}
+async function run(id){
+  const my=++token;busy=true;chs.innerHTML='';
+  const node=F[cur].nodes[id];if(!node){busy=false;return}
+  if(node.intent)addLog(T('Intent detected: ','تم تحديد النية: ')+node.intent(),'in');
+  for(const it of node.say(S)){
+    await typing();if(my!==token)return;
+    if(typeof it==='string')bubble('bot',it);else bubble('bot card-b',cardHTML(it));
+    nMsg++;bump();
+  }
+  if(node.log){for(const l of node.log(S)){await wait(380);if(my!==token)return;addLog(l)}}
+  if(my!==token)return;
+  showChoices(node.choices(S));busy=false;
+}
+function pick(c){
+  if(busy)return;
+  bubble('me',c.t);nMsg++;bump();addLog(T('WhatsApp message received','تم استلام رسالة واتساب'),'in');
+  if(c.set)Object.assign(S,c.set);
+  run(c.go);
+}
+$('#txt').addEventListener('keydown',k=>{if(k.key==='Enter'){k.preventDefault();$('#ask button').click()}});
+$('#ask button').addEventListener('click',async e=>{
+  e.preventDefault();const v=$('#txt').value.trim();if(!v||busy)return;$('#txt').value='';
+  bubble('me',v.replace(/</g,'&lt;'));nMsg++;bump();addLog(T('WhatsApp message received','تم استلام رسالة واتساب'),'in');
+  const hit=F[cur].kw.find(k=>k[0].test(v));
+  if(hit){run(hit[1])}else{busy=true;chs.innerHTML='';const my=token;await typing();if(my!==token)return;bubble('bot',T("I can help with the options below. Tap one, or tell me a bit more about what you need.","يمكنني مساعدتك بالخيارات أدناه. اختر واحداً أو أخبرني أكثر عمّا تحتاجه."));nMsg++;bump();showChoices(lastCh);busy=false}
+});
+function start(k){
+  cur=k;S={};token++;busy=false;msgs.innerHTML='';logEl.innerHTML='';chs.innerHTML='';nMsg=0;nTask=0;bump();
+  const n=NAMES[k];$('#pname').textContent=lang==='ar'?n[1]:n[0];$('#av').textContent=lang==='ar'?n[3]:n[2];
+  $$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.k===k));
+  run('menu');
+}
+$$('.tab').forEach(t=>t.addEventListener('click',()=>{if(t.dataset.k!==cur)start(t.dataset.k)}));
+$('#reset').addEventListener('click',()=>start(cur));
+new IntersectionObserver((e,o)=>{if(e[0].isIntersecting&&!started){started=true;start('clinic');o.disconnect()}},{threshold:.15}).observe($('.demo'));
+
+let thxName='';
+function applyLang(){
+  const h=document.documentElement;h.lang=lang;h.dir=lang==='ar'?'rtl':'ltr';
+  $$('[data-i]').forEach(el=>{const v=DICT[lang][el.dataset.i];if(v!=null)el.innerHTML=v});
+  $$('[data-ph]').forEach(el=>el.placeholder=DICT[lang][el.dataset.ph]);
+  $('#lang').textContent=lang==='ar'?'EN':'عربي';$('#lang').setAttribute('aria-label',lang==='ar'?'Switch to English':'التبديل إلى العربية');
+  document.title=lang==='ar'?'ARISE — أتمتة بالذكاء الاصطناعي لأي نشاط تجاري':'ARISE — AI Automation for Any Business';
+  const n=NAMES[cur];$('#pname').textContent=lang==='ar'?n[1]:n[0];$('#av').textContent=lang==='ar'?n[3]:n[2];
+  if(thxName)$('#thx').textContent=lang==='ar'?`شكراً لك، ${thxName}!`:`Thank you, ${thxName}!`;
+}
+$('#lang').addEventListener('click',()=>{lang=lang==='ar'?'en':'ar';applyLang();if(started)start(cur);if(hasG)setTimeout(()=>ScrollTrigger.refresh(),50)});
+applyLang();
+
+let page='home';
+function resetBook(){$('#leadForm').style.display='';$('#done').style.display='none';$('#err').textContent='';$('#sub').disabled=false;$('#st-1').classList.add('on');$('#st-2').classList.remove('on');thxName=''}
+function showPage(p){
+  if(p===page)return;page=p;const book=p==='book',hide=$(book?'#home':'#bookpage'),show=$(book?'#bookpage':'#home');
+  const swap=()=>{hide.style.display='none';show.style.display='block';window.scrollTo(0,0);dispatchEvent(new Event('resize'));
+    if(hasG&&!reduce){ScrollTrigger.refresh();gsap.fromTo(show,{opacity:0},{opacity:1,duration:.5,clearProps:'opacity'});if(book)gsap.from('.bk-in',{y:36,opacity:0,stagger:.09,duration:.8,ease:'power3.out',delay:.1,clearProps:'all'})}
+    else{show.style.opacity=1}};
+  if(book)resetBook();
+  if(hasG&&!reduce)gsap.to(hide,{opacity:0,duration:.25,onComplete:swap});else swap();
+  try{history.replaceState(null,'',book?'#book':'#top')}catch(e){}
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a[href^="#"]');if(!a)return;
+  if(a.hasAttribute('data-book')){e.preventDefault();showPage('book');return}
+  if(page==='book'){e.preventDefault();const h=a.getAttribute('href');showPage('home');setTimeout(()=>{const t=h&&h.length>1?$(h):null;if(t)t.scrollIntoView({behavior:'smooth'})},700)}
+});
+$$('#leadForm input').forEach(i=>i.addEventListener('keydown',k=>{if(k.key==='Enter'){k.preventDefault();$('#sub').click()}}));
+$('#sub').addEventListener('click',async ev=>{
+  ev.preventDefault();const fd=new FormData($('#leadForm')),d={name:(fd.get('name')||'').trim(),phone:(fd.get('phone')||'').trim(),email:(fd.get('email')||'').trim(),website:(fd.get('website')||'').trim(),notes:(fd.get('notes')||'').trim(),lang,source:'arise-website'};
+  const err=$('#err');
+  if(!d.name||!d.phone||!d.email){err.textContent=T('Please fill in your name, phone number and email.','يرجى إدخال الاسم ورقم الهاتف والبريد الإلكتروني.');return}
+  if(!/^\S+@\S+\.\S+$/.test(d.email)){err.textContent=T('Please enter a valid email address.','يرجى إدخال بريد إلكتروني صحيح.');return}
+  err.textContent='';const btn=$('#sub');btn.disabled=true;btn.textContent=T('Saving…','جارٍ الحفظ…');
+  if(CONFIG.sheetEndpoint){
+    try{await Promise.race([fetch(CONFIG.sheetEndpoint,{method:'POST',mode:'no-cors',keepalive:true,body:new URLSearchParams(d)}),wait(3500)])}
+    catch(x){toast('Could not reach the sheet endpoint. Check CONFIG.sheetEndpoint.')}
+  }else toast('Preview mode: add your Apps Script URL to CONFIG.sheetEndpoint so leads save to your sheet.');
+  const FRAMED=(()=>{try{return window.self!==window.top}catch(x){return true}})();
+  if(!FRAMED){window.location.href=CONFIG.calendar;return}
+  btn.disabled=false;btn.innerHTML=DICT[lang].fSub;
+  thxName=d.name.split(' ')[0].replace(/</g,'');$('#thx').textContent=lang==='ar'?`شكراً لك، ${thxName}!`:`Thank you, ${thxName}!`;
+  $('#st-2').classList.add('on');
+  const done=$('#done'),form=$('#leadForm');
+  const reveal=()=>{form.style.display='none';done.style.display='block';if(hasG&&!reduce)gsap.from('#done > *',{y:24,opacity:0,stagger:.1,duration:.7,ease:'power3.out',clearProps:'all'})};
+  if(hasG&&!reduce)gsap.to(form,{opacity:0,y:-10,duration:.3,onComplete:()=>{reveal();gsap.set(form,{clearProps:'all'});form.style.display='none'}});else reveal();
+});
+if(location.hash==='#book')setTimeout(()=>showPage('book'),50);
+
+(function(){
+  if(!hasG||reduce){$('.loader').remove();return}
+  document.body.classList.add('hascur');
+  gsap.set('.hero .wi',{yPercent:115});gsap.set('.hero .fade',{opacity:0,y:30});gsap.set('nav.top',{yPercent:-100});
+  gsap.timeline()
+   .from('.loader .mark',{scale:.5,opacity:0,duration:.8,ease:'back.out(1.6)'})
+   .from('.loader .lt span',{yPercent:120,stagger:.08,duration:.7,ease:'power4.out'},'-=.4')
+   .to('.loader .bar i',{scaleX:1,duration:.8,ease:'power2.inOut'},'-=.2')
+   .to('.loader',{yPercent:-100,duration:.9,ease:'power4.inOut'},'+=.1')
+   .to('.hero .wi',{yPercent:0,stagger:.12,duration:1.1,ease:'power4.out'},'-=.4')
+   .to('.hero .fade',{opacity:1,y:0,stagger:.12,duration:.9,ease:'power3.out'},'-=.7')
+   .to('nav.top',{yPercent:0,duration:.8,ease:'power3.out'},'-=.8')
+   .set('.loader',{display:'none'});
+  gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.2}});
+  ScrollTrigger.create({start:0,end:'max',onUpdate:s=>{if(s.scroll()>0)gsap.to('nav.top',{yPercent:s.direction===1&&s.scroll()>260?-100:0,duration:.4,overwrite:'auto'})}});
+  gsap.to('.orb1',{yPercent:60,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.orb2',{yPercent:-40,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.hero .content',{yPercent:-10,opacity:.15,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.set('.rv',{opacity:0,y:50});
+  ScrollTrigger.batch('.rv',{start:'top 90%',once:true,onEnter:b=>gsap.to(b,{opacity:1,y:0,stagger:.1,duration:.9,ease:'power3.out'})});
+  $$('[data-count]').forEach(el=>{const end=+el.dataset.count;ScrollTrigger.create({trigger:el,start:'top 95%',once:true,onEnter:()=>{const o={v:0};gsap.to(o,{v:end,duration:2,ease:'power2.out',delay:el.closest('.hero')?1.8:0,onUpdate:()=>el.textContent=Math.round(o.v)})}})});
+  const CH='!<>-_/[]{}=+*^?#';
+  $$('#home .eyebrow').forEach(el=>{ScrollTrigger.create({trigger:el,start:'top 92%',once:true,onEnter:()=>{const t=DICT[lang][el.dataset.i]||el.textContent;if(lang==='ar'){el.textContent=t;return}const o={p:0};gsap.to(o,{p:1,duration:1.1,ease:'none',onUpdate:()=>{const n=Math.floor(o.p*t.length);el.textContent=t.slice(0,n)+[...t.slice(n)].map(c=>c===' '?' ':CH[Math.random()*CH.length|0]).join('')},onComplete:()=>el.textContent=DICT[lang][el.dataset.i]||t})}})});
+  const mq=gsap.to('#mq',{xPercent:-50,repeat:-1,duration:34,ease:'none'});
+  ScrollTrigger.create({onUpdate:s=>mq.timeScale(1+Math.min(Math.abs(s.getVelocity())/260,7))});
+  gsap.ticker.add(()=>{const t=mq.timeScale();if(t>1)mq.timeScale(Math.max(1,t*.94))});
+  gsap.to('.pline i',{scaleY:1,ease:'none',scrollTrigger:{trigger:'.process-list',start:'top 65%',end:'bottom 65%',scrub:true}});
+  $$('.step').forEach(s=>ScrollTrigger.create({trigger:s,start:'top 68%',onEnter:()=>s.classList.add('on'),onLeaveBack:()=>s.classList.remove('on')}));
+  $$('.card').forEach(c=>{
+    c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');gsap.to(c,{rotateY:(x/r.width-.5)*10,rotateX:-(y/r.height-.5)*10,transformPerspective:900,duration:.4,overwrite:'auto'})});
+    c.addEventListener('mouseleave',()=>gsap.to(c,{rotateX:0,rotateY:0,duration:.7,ease:'power3.out',overwrite:'auto'}));
+  });
+  if(fine){
+    $$('.mag').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.4})});b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:.8,ease:'elastic.out(1,.4)'}))});
+    const dot=$('.cur'),ring=$('.cur-r');const dx=gsap.quickTo(dot,'x',{duration:.08}),dy=gsap.quickTo(dot,'y',{duration:.08}),rx=gsap.quickTo(ring,'x',{duration:.4,ease:'power3'}),ry=gsap.quickTo(ring,'y',{duration:.4,ease:'power3'});
+    addEventListener('mousemove',e=>{dx(e.clientX);dy(e.clientY);rx(e.clientX);ry(e.clientY)});
+    document.addEventListener('mouseover',e=>ring.classList.toggle('big',!!e.target.closest('a,button,.card,.choice,input,textarea')));
+  }
+})();
+</script>
+</body>
+</html>
