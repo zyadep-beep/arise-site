@@ -385,7 +385,7 @@ const CONFIG={
   email:'zyadep@gmail.com',
   calendar:'https://calendar.app.google/Mbg9yc14ADiPC1vn6',
   sheetEndpoint:'https://script.google.com/macros/s/AKfycbxrEDOD9-C1MtdvDiyQJKTTTridGQlnHd8t5jHikrm73OMhxmeR_IYbuB0r073QDJmC/exec',
-  logoUrl:''
+  logoUrl:'logo.png'
 };
 
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -405,7 +405,7 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clea
   $$('a.js-tel').forEach(a=>a.href='tel:'+tel);
   $$('a.js-mail').forEach(a=>a.href='mailto:'+CONFIG.email);
   $('#proceed').href=CONFIG.calendar;
-  if(CONFIG.logoUrl)$$('svg.mark').forEach(s=>{const i=document.createElement('img');i.className=s.getAttribute('class');i.src=CONFIG.logoUrl;i.alt='ARISE';s.replaceWith(i)});
+  if(CONFIG.logoUrl){const pre=new Image();pre.onload=()=>$$('svg.mark').forEach(s=>{const i=document.createElement('img');i.className=s.getAttribute('class');i.src=CONFIG.logoUrl;i.alt='ARISE';s.replaceWith(i)});pre.src=CONFIG.logoUrl}
 })();
 
 const D={
