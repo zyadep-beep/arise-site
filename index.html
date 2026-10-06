@@ -633,13 +633,13 @@ document.addEventListener('click',e=>{
 });
 $$('#leadForm input').forEach(i=>i.addEventListener('keydown',k=>{if(k.key==='Enter'){k.preventDefault();$('#sub').click()}}));
 $('#sub').addEventListener('click',async ev=>{
-  ev.preventDefault();const fd=new FormData($('#leadForm')),d={name:(fd.get('name')||'').trim(),phone:(fd.get('phone')||'').trim(),email:(fd.get('email')||'').trim(),website:(fd.get('website')||'').trim(),notes:(fd.get('notes')||'').trim(),lang,source:'arise-website'};
+  ev.preventDefault();const fd=new FormData($('#leadForm')),d={name:(fd.get('name')||'').trim(),phone:(fd.get('phone')||'').trim(),email:(fd.get('email')||'').trim(),website:(fd.get('website')||'').trim(),notes:(fd.get('notes')||'').trim(),source:'arise-website'};
   const err=$('#err');
   if(!d.name||!d.phone||!d.email){err.textContent=T('Please fill in your name, phone number and email.','يرجى إدخال الاسم ورقم الهاتف والبريد الإلكتروني.');return}
   if(!/^\S+@\S+\.\S+$/.test(d.email)){err.textContent=T('Please enter a valid email address.','يرجى إدخال بريد إلكتروني صحيح.');return}
   err.textContent='';const btn=$('#sub');btn.disabled=true;btn.textContent=T('Saving…','جارٍ الحفظ…');
   if(CONFIG.sheetEndpoint){
-    try{await Promise.race([fetch(CONFIG.sheetEndpoint,{method:'POST',mode:'no-cors',keepalive:true,body:new URLSearchParams(d)}),wait(3500)])}
+    try{await (async()=>{const pl=new URLSearchParams(d);let q=false;try{q=navigator.sendBeacon&&navigator.sendBeacon(CONFIG.sheetEndpoint,pl)}catch(x){}if(!q)await Promise.race([fetch(CONFIG.sheetEndpoint,{method:'POST',mode:'no-cors',keepalive:true,body:pl}),wait(1200)])})()}
     catch(x){toast('Could not reach the sheet endpoint. Check CONFIG.sheetEndpoint.')}
   }else toast('Preview mode: add your Apps Script URL to CONFIG.sheetEndpoint so leads save to your sheet.');
   const FRAMED=(()=>{try{return window.self!==window.top}catch(x){return true}})();
